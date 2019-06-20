@@ -18,7 +18,7 @@ if [[ "$TAG" == "" ]];  then
 fi
 
 wget https://github.com/aktau/github-release/releases/download/v0.7.2/linux-amd64-github-release.tar.bz2
-tar zxvf linux-amd64-github-release.tar.bz2
+tar jxvf linux-amd64-github-release.tar.bz2
 mv bin/linux/amd64/github-release /usr/bin
 github-release release --tag $TAG
 github-release upload  --tag $TAG -f $output_image
