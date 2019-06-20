@@ -25,4 +25,4 @@ output_image=$($cmd)
 echo "Built $output_image"
 
 mkdir -p images
-mv $output_image image/
+mv $output_image images/
