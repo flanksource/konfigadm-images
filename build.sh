@@ -5,7 +5,7 @@ apt-get -y install
 wget https://github.com/moshloop/konfigadm/releases/download/v0.3.0/konfigadm.deb
 dpkg -i konfigadm.deb
 konfigadm apply -c setup.yml -v
-output_image=$(konfigadm build-image --image $image -c k8s-${runtime}.yml)
+output_image=$(konfigadm build-image --image $image -c k8s-docker.yml -v )
 
 GITHUB_REPO=$(basename $(git remote get-url origin | sed 's/\.git//'))
 GITHUB_USER=$(basename $(dirname $(git remote get-url origin | sed 's/\.git//')))
