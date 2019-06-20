@@ -20,4 +20,4 @@ environment:
 
 build_script:
   - sh: sudo snap install go --classic
-  - sh: sudo ./build.sh
+  - sh: sudo ./build.sh {image} {runtime}
