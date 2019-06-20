@@ -1,11 +1,10 @@
 #!/bin/bash
 
+KONFIGADM_VERSION=v0.3.1
+
 echo "image=$image runtime=$runtime 1=$1 2=$2"
-
-image=${image}
-
 if ! which konfigadm > /dev/null; then
-  wget https://github.com/moshloop/konfigadm/releases/download/v0.3.1/konfigadm.deb
+  wget https://github.com/moshloop/konfigadm/releases/download/$KONFIGADM_VERSION/konfigadm.deb
   dpkg -i konfigadm.deb
 fi
 if [[ "$image" == "" ]]; then
@@ -19,7 +18,7 @@ fi
 konfigadm apply -c setup.yml -v
 
 cmd="konfigadm build-image --image $image -c k8s-docker.yml -v"
-echo $cmd
+echo "Building image using: $cmd"
 output_image=$($cmd)
 
 echo "Built $output_image"
