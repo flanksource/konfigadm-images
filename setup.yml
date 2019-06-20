@@ -1,0 +1,6 @@
+packages:
+  - qemu-system-x86
+  - kpartx
+  - python-pexpect
+  - python-serial
+  - libguestfs-tools
