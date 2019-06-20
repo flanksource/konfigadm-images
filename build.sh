@@ -38,7 +38,7 @@ fi
 wget https://github.com/aktau/github-release/releases/download/v0.7.2/linux-amd64-github-release.tar.bz2
 tar jxvf linux-amd64-github-release.tar.bz2
 mv bin/linux/amd64/github-release /usr/bin
-echo "Releasing $GITHUB_REPO/$GITHUB_USER:$TAG"
-github-release release --tag $TAG
+echo "Releasing $GITHUB_USER/$GITHUB_REPO:$TAG"
+github-release release -u $GITHUB_USER -r $GITHUB_REPO --tag $TAG
 echo "Uploading $output_image"
-github-release upload  --tag $TAG -f $output_image
+github-release upload -u $GITHUB_USER -r $GITHUB_REPO  --tag $TAG -f $output_image
