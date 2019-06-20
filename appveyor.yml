@@ -6,8 +6,6 @@ image: Ubuntu1804
 #  - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-ssh.sh' | bash -e -
 
 environment:
-  GITHUB_TOKEN:
-    secure: iO9qBR19uG7zvP2ocrkrn35YTchFxm0G0stLeZ/AVeY3RAIXoUt5Q1H9nGiCN6Ao
   matrix:
     - image: ubuntu:1804
       runtime: docker
@@ -20,4 +18,19 @@ environment:
 
 build_script:
   - sh: sudo snap install go --classic
-  - sh: sudo GITHUB_TOKEN=$GITHUB_TOKEN ./build.sh ${image} ${runtime}
+  - sh: sudo ./build.sh ${image} ${runtime}
+
+artifacts:
+  - path: images/*
+    type: File
+
+deploy:
+  release: $(APPVEYOR_REPO_TAG_NAME)
+  provider: GitHub
+  auth_token:
+    secure: iO9qBR19uG7zvP2ocrkrn35YTchFxm0G0stLeZ/AVeY3RAIXoUt5Q1H9nGiCN6Ao
+  artifact: /.*/
+  draft: false
+  prerelease: false
+  on:
+    APPVEYOR_REPO_TAG: true

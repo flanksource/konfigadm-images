@@ -24,21 +24,5 @@ output_image=$($cmd)
 
 echo "Built $output_image"
 
-GITHUB_REPO=$(basename $(git remote get-url origin | sed 's/\.git//'))
-GITHUB_USER=$(basename $(dirname $(git remote get-url origin | sed 's/\.git//')))
-GITHUB_USER=${GITHUB_USER##*:}
-TAG=$(git tag --points-at HEAD )
-
-
-if [[ "$TAG" == "" ]];  then
-  echo "Skipping release of untagged commit"
-  exit 0
-fi
-
-wget https://github.com/aktau/github-release/releases/download/v0.7.2/linux-amd64-github-release.tar.bz2
-tar jxvf linux-amd64-github-release.tar.bz2
-mv bin/linux/amd64/github-release /usr/bin
-echo "Releasing $GITHUB_USER/$GITHUB_REPO:$TAG"
-github-release release -u $GITHUB_USER -r $GITHUB_REPO --tag $TAG
-echo "Uploading $output_image"
-github-release upload -u $GITHUB_USER -r $GITHUB_REPO  --tag $TAG --name $(basename $output_image) -f $output_image
+mkdir -p images
+mv $output_image image/
