@@ -4,7 +4,7 @@ apt-get update
 apt-get -y install
 wget https://github.com/moshloop/konfigadm/releases/download/v0.3.0/konfigadm.deb
 dpkg -i konfigadm.deb
-konfigadm apply -f setup.yml -v
+konfigadm apply -c setup.yml -v
 output_image=$(konfigadm build-image --image $image -c k8s-${runtime}.yml)
 
 GITHUB_REPO=$(basename $(git remote get-url origin | sed 's/\.git//'))
@@ -17,7 +17,8 @@ if [[ "$TAG" == "" ]];  then
   exit 0
 fi
 
-GO111MODULE=off go get github.com/aktau/github-release
-go get github.com/aktau/github-release
+wget https://github.com/aktau/github-release/releases/download/v0.7.2/linux-amd64-github-release.tar.bz2
+tar zxvf linux-amd64-github-release.tar.bz2
+mv bin/linux/amd64/github-release /usr/bin
 github-release release --tag $TAG
 github-release upload  --tag $TAG -f $output_image
