@@ -4,3 +4,4 @@ packages:
   - python-pexpect
   - python-serial
   - libguestfs-tools
+  - qemu-kvm
