@@ -1,6 +1,6 @@
 #!/bin/bash
-set -x
-KONFIGADM_VERSION=v0.3.4
+set -o verbose
+KONFIGADM_VERSION=v0.3.5
 image=$1
 config=$2
 if ! which konfigadm > /dev/null; then
@@ -13,15 +13,8 @@ if [[ "$image" == "" ]]; then
   exit 1
 fi
 konfigadm apply -c setup.yml -v
-
-cmd="konfigadm build-image --image $image ${config}.yml --resize +2G -v"
-echo "Building image using: $cmd"
-output_image=$($cmd)
-output_image=$(echo $output_image | tail -1)
-
-echo "Built $output_image"
-filename=$(basename $output_image)
-renamed=${config}-$filename
+filename="$(basename $image)"
+extension="${filename##*.}"
+filename="${config}-${filename%.*}-$(date +%Y%m%d%M%H%M%S).img"
 mkdir -p images
-echo Renaming $output_image images/$renamed
-mv $output_image images/$renamed
+konfigadm build-image --image $image ${config}.yml --resize +2G  --output-filename $filename --output-dir images -v

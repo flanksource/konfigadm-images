@@ -1,0 +1,76 @@
+container_runtime:
+  type: docker
+kubernetes:
+  version: 1.13.6
+cleanup: true
+post_commands:
+  - pip install awscli #aws
+  - echo "root:root" | chpasswd
+  - update-grub
+  - curl -sSL https://raw.githubusercontent.com/vmware/cloud-init-vmware-guestinfo/master/install.sh | sh -
+  - kubeadm config images pull --kubernetes-version 1.13.6 --cri-socket=unix:///var/run/containerd/containerd.sock
+
+package_repos:
+  - url: http://ppa.launchpad.net/detiber/cloud-init/ubuntu
+    name: detiber
+    gpgKey: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xD8DE31CD49D026AC
+    channel: main
+    tags:
+      - "debian-like"
+  - url: https://copr.fedorainfracloud.org/coprs/jdetiber/cloud-init/repo/epel-7/jdetiber-cloud-init-epel-7.repo
+    name: detiber
+    tags:
+      - "redhat-like"
+
+packages:
+  # Ensure systemd scripts run on shutdown
+  - acpi-support
+
+  # these packages are generally useful
+  # (and are the ones from the GCE image)
+  - rsync
+  - screen
+  - vim
+
+  # needed for docker
+  - iptables
+  - libapparmor1
+  - libltdl7
+
+  # Handy utilities
+  - htop
+  - tcpdump
+  - iotop
+  - ethtool
+  - sysstat
+
+  # needed for setfacl below
+  - acl
+
+  - python-boto #aws
+  - python3-boto  #aws
+  - apt-transport-https  #aws
+  - lvm2  #aws
+  - ncurses-term  #aws
+  - parted  #aws
+  - cloud-init  #aws
+  - cloud-utils  #aws
+  - gdisk  #aws
+  - systemd  #aws
+  - systemd-sysv  #aws
+  - python-pip #aws
+
+
+  - aufs-tools
+  - curl
+  - python-yaml
+  - git
+  - nfs-common
+  - bridge-utils
+  - logrotate
+  - socat
+  - python-apt
+  - apt-transport-https
+  - unattended-upgrades
+  - lvm2
+  - btrfs-tools
