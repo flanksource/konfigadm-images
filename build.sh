@@ -22,6 +22,7 @@ echo "Built $output_image"
 
 extension="${output_image##*.}"
 filename="${output_image%.*}"
-
+renamed=${config}-$(basename $output_image)
 mkdir -p images
-mv $output_image images/${config}_${filename}.${extension}
+echo Renaming $output_image images/$renamed
+mv $output_image images/$renamed
