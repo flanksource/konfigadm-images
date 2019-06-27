@@ -1,0 +1,6 @@
+kubernetes:
+  version: 1.13.6
+container_runtime:
+  type: docker
+commands:
+  - kubeadm config images pull
