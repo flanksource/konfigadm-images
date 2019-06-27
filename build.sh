@@ -1,5 +1,5 @@
 #!/bin/bash
-set -o verbose
+set -x
 KONFIGADM_VERSION=v0.3.4
 image=$1
 config=$2
