@@ -15,6 +15,6 @@ fi
 konfigadm apply -c setup.yml -v
 filename="$(basename $image)"
 extension="${filename##*.}"
-filename="${config}-${filename%.*}-$(date +%Y%m%d%M%H%M%S).img"
+filename="$(echo $config | sed 's/:/_/') -${filename%.*}-$(date +%Y%m%d%M%H%M%S).img"
 mkdir -p images
 konfigadm build-image --image $image ${config}.yml --resize +2G  --output-filename $filename --output-dir images -v
