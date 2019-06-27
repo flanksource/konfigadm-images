@@ -17,12 +17,11 @@ konfigadm apply -c setup.yml -v
 cmd="konfigadm build-image --image $image ${config}.yml --resize +2G -v"
 echo "Building image using: $cmd"
 output_image=$($cmd)
+output_image=$(echo $output_image | tail -1)
 
 echo "Built $output_image"
-
-extension="${output_image##*.}"
-filename="${output_image%.*}"
-renamed=${config}-$(basename $output_image)
+filename=$(basename $output_image)
+renamed=${config}-$filename
 mkdir -p images
 echo Renaming $output_image images/$renamed
 mv $output_image images/$renamed
