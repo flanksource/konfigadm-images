@@ -17,5 +17,4 @@ filename="$(basename $image | sed 's/:/_/')"
 extension="${filename##*.}"
 filename="$(echo $config)-${filename%.*}-$(date +%Y%m%d%M%H%M%S).img"
 mkdir -p images
-echo konfigadm build-image --image "$image" --resize +2G  --output-filename "$filename" --output-dir images "${config}.yml" -v
-konfigadm build-image --image "$image" --resize +2G  --output-filename "$filename" --output-dir images "${config}.yml" -v
+konfigadm build-image --image "$image" --resize +2G  --output-filename "$filename" --output-dir images "${config}.yml" -v --driver libguestfs
