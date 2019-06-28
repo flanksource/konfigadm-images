@@ -1,6 +1,6 @@
 #!/bin/bash
 set -o verbose
-KONFIGADM_VERSION=v0.3.5
+KONFIGADM_VERSION=v0.3.6
 image=$(echo $1 |  tr -d '[:space:]')
 config=$(echo $2 |  tr -d '[:space:]')
 if ! which konfigadm > /dev/null; then
@@ -17,4 +17,4 @@ filename="$(basename $image | sed 's/:/_/')"
 extension="${filename##*.}"
 filename="$(echo $config)-${filename%.*}-$(date +%Y%m%d%M%H%M%S).img"
 mkdir -p images
-konfigadm build-image --image "$image" --resize +2G  --output-filename "$filename" --output-dir images "${config}.yml" -v --driver libguestfs
+konfigadm build-image --image "$image" --resize +2G  --output-filename "$filename" --output-dir images "${config}.yml" -v
