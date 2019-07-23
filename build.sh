@@ -1,6 +1,6 @@
 #!/bin/bash
 set -o verbose
-KONFIGADM_VERSION=v0.4.0
+KONFIGADM_VERSION=0.4.0
 image=$(echo $1 |  tr -d '[:space:]')
 config=$(echo $2 |  tr -d '[:space:]')
 if ! which konfigadm > /dev/null; then
