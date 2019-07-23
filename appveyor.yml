@@ -7,22 +7,19 @@ init:
 environment:
   APPVEYOR_SSH_KEY: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF4fzNRtQoSJMmp+kgg+K+zGAJu9YKpYSH/96nkIBXbXqZpOmtGnweFTXLcJQHV46YZCCQdcFxjm6e2vUG+6F4e3aGuCQBgiHMcB0/Qsvm2f84bHQpUfxsK5Sa/1wDEe8pyWXuylTbiW1jV+knH3m3b7uijBh4qaHBF8hIqHSOtP5X67NTBcFYuQ8gkiqM519BOxYq/K+A5vFDA62vdErpdjrZbw8A7+VXxzIkDRnztQNo5kVj2+/6UqaGzbSS4pvLszKOlvwB6g9vTAYcdP43NxgzOS42FnMclJfBm+IE6RhdWq8ulyvS5RdahzwEwQOBkxUnkiO4XWQXsaKbhcVl
   matrix:
-    - image: ubuntu:1804
-      config: capv
-    - image: centos:7
-      config: capv
-    - image: ubuntu:1804
-      config: docker
-    - image: debian:9
-      config: docker
+    - image: ubuntu1804
+      config: k8s-1.15
+    - image: ubuntu1804
+      config: k8s-1.14
+    - image: ubuntu1804
+      config: k8s-1.13
+    - image: centos7
+      config: k8s-1.15
+    - image: debian
+      config: k8s-1.15
     - image: fedora:30
-      config: docker
-    - image: centos:7
-      config: docker
-    - image: ubuntu:1804
-      config: containerd
-    - image: centos:7
-      config: containerd
+      config: k8s-1.15
+
 
   GOPATH: /usr/go/
   GO111MODULES: on
