@@ -18,3 +18,5 @@ extension="${filename##*.}"
 filename="$(echo $config)-${filename%.*}-$(date +"%V%u-%H%M%S").img"
 mkdir -p images
 konfigadm images build --image "$image" --resize +2G --output-filename "$filename" --output-dir images "${config}.yml" -v
+konfigadm images convert --image "$image" --output-dir images
+gsutil cp images/* gs://moshloop-image-builder/
