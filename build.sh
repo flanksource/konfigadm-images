@@ -48,7 +48,7 @@ filename="$(echo $config)-${filename%.*}-$(date +"%V%u-%H%M%S").img"
 mkdir -p images
 konfigadm images build --image "$image" --resize +2G --output-filename "$filename" --output-dir images "${config}.yml" -v
 
-if !which gitub-release; then
+if ! which gitub-release; then
   wget https://github.com/aktau/github-release/releases/download/v0.7.2/linux-amd64-github-release.tar.bz2
   tar -xjvf linux-amd64-github-release.tar.bz2 --strip-components=3 -C /usr/bin/
 fi

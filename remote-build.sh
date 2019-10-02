@@ -38,6 +38,7 @@ gcloud compute scp --compress --recurse \
        --ssh-key-file=${KEYNAME}
 
 gcloud compute ssh --ssh-key-file=${KEYNAME} \
+      --verbosity debug \
        ${USERNAME}@${INSTANCE_NAME} -- "export GITHUB_USER=${_REPO_OWNER} && export NAME=${REPO_NAME} && exportTAG=${REVISION_ID} && " ${COMMAND}
 
 gcloud compute scp --compress --recurse \
