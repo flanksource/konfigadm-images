@@ -12,6 +12,6 @@ steps:
     - COMMAND= ./build.sh k8s-1.15
 
 secrets:
-- kmsKeyName: projects/1070676966669/locations/global/keyRings/github/cryptoKeys/token
+- kmsKeyName: projects/moshloop-image-builder/locations/global/keyRings/github/cryptoKeys/token
   secretEnv:
     GITHUB_TOKEN: CiQAz62ZrcFaGSwELCWP+6xSW3xj5guMWTRb9SpqDbCMon2NdoMSUQCQ1NIp7Xe85G9ty+Zp6zKF72HFTsdOKoCB9oSG4mCncXgST/rCnH4WIrltn833MQ/d6OBHl2tFlinrlJyRZ51GEn48Hte4EPwdLZw+bbS74Q==
