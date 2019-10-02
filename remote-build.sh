@@ -38,8 +38,8 @@ gcloud compute scp --compress --recurse \
        --ssh-key-file=${KEYNAME}
 
 gcloud compute ssh --ssh-key-file=${KEYNAME} \
-       ${USERNAME}@${INSTANCE_NAME} -- GITHUB_USER=${_REPO_OWNER} NAME=${REPO_NAME} TAG=${REVISION_ID} ${COMMAND}
+       ${USERNAME}@${INSTANCE_NAME} -- "export GITHUB_USER=${_REPO_OWNER} && export NAME=${REPO_NAME} && exportTAG=${REVISION_ID} && " ${COMMAND}
 
 gcloud compute scp --compress --recurse \
-       ${USERNAME}@${INSTANCE_NAME}:${REMOTE_WORKSPACE}* $(pwd) \
+       ${USERNAME}@${INSTANCE_NAME}:${REMOTE_WORKSPACE}*.log $(pwd) \
        --ssh-key-file=${KEYNAME}

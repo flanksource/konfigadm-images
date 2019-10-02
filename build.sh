@@ -37,7 +37,6 @@ if ! which qemu-system-x86; then
   sudo apt-get install -y qemu-system-x86
 fi
 
-
 if ! which genisoimage; then
   apt-get install -y genisoimage
 fi
@@ -48,7 +47,11 @@ extension="${filename##*.}"
 filename="$(echo $config)-${filename%.*}-$(date +"%V%u-%H%M%S").img"
 mkdir -p images
 konfigadm images build --image "$image" --resize +2G --output-filename "$filename" --output-dir images "${config}.yml" -v
-go get  -u github.com/aktau/github-release
+
+if !which gitub-release; then
+  wget https://github.com/aktau/github-release/releases/download/v0.7.2/linux-amd64-github-release.tar.bz2
+  tar -xjvf linux-amd64-github-release.tar.bz2 --strip-components=3 -C /usr/bin/
+fi
 
 echo Creating release
 github-release release \
@@ -56,8 +59,6 @@ github-release release \
     --repo $NAME \
     --tag $TAG \
     --pre-release
-
-
 
 cd images
 if ! which ovftool; then
