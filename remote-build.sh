@@ -2,7 +2,7 @@
 
 # Always delete instance after attempting build
 function cleanup {
-    echo gcloud compute instances delete ${INSTANCE_NAME} --quiet --delete-disks=all
+  gcloud compute instances delete ${INSTANCE_NAME} --quiet --delete-disks=all
 }
 
 # Configurable parameters
