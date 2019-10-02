@@ -11,6 +11,7 @@ steps:
     - USERNAME=cloud-user
     - COMMAND=sudo /home/cloud-user/workspace/build.sh ubuntu1804 k8s-1.15
 
+timeout: 1h
 secrets:
 - kmsKeyName: projects/moshloop-image-builder/locations/global/keyRings/github/cryptoKeys/token
   secretEnv:

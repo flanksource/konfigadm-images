@@ -32,17 +32,14 @@ gcloud compute instances create \
 
 trap cleanup EXIT
 
-tar czvf workspace.tgz $(pwd)
-
-gcloud compute scp  $(pwd)/workspace.tgz  ${USERNAME}@${INSTANCE_NAME}:${REMOTE_WORKSPACE} \
+gcloud compute scp --compress --recurse \
+      --verbosity debug \
+       $(pwd) ${USERNAME}@${INSTANCE_NAME}:${REMOTE_WORKSPACE} \
        --ssh-key-file=${KEYNAME}
 
 gcloud compute ssh --ssh-key-file=${KEYNAME} \
-       ${USERNAME}@${INSTANCE_NAME} -- tar -xzvf -C ${REMOTE_WORKSPACE} workspace.tgz
-
-gcloud compute ssh --ssh-key-file=${KEYNAME} \
-       ${USERNAME}@${INSTANCE_NAME} -- ${COMMAND}
+       ${USERNAME}@${INSTANCE_NAME} -- GITHUB_USER=${_REPO_OWNER} NAME=${REPO_NAME} TAG=${REVISION_ID} ${COMMAND}
 
 gcloud compute scp --compress --recurse \
-       ${USERNAME}@${INSTANCE_NAME}:${REMOTE_WORKSPACE}*.log $(pwd) \
+       ${USERNAME}@${INSTANCE_NAME}:${REMOTE_WORKSPACE}* $(pwd) \
        --ssh-key-file=${KEYNAME}
