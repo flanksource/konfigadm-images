@@ -33,6 +33,7 @@ if ! which gcloud; then
 fi
 
 if ! which qemu-system-x86; then
+  apt-get update
   sudo apt-get install -y qemu-system-x86
 fi
 
@@ -43,7 +44,7 @@ extension="${filename##*.}"
 filename="$(echo $config)-${filename%.*}-$(date +"%V%u-%H%M%S").img"
 mkdir -p images
 konfigadm images build --image "$image" --resize +2G --output-filename "$filename" --output-dir images "${config}.yml" -v
-go get github.com/aktau/github-release
+go get  -u github.com/aktau/github-release
 
 echo Creating release
 github-release release \
