@@ -38,6 +38,10 @@ if ! which qemu-system-x86; then
 fi
 
 
+if ! which genisoimage; then
+  apt-get install -y genisoimage
+fi
+
 # konfigadm apply -c setup.yml -v
 filename="$(basename $image | sed 's/:/_/')"
 extension="${filename##*.}"
