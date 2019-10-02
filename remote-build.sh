@@ -1,21 +1,8 @@
 #!/bin/bash
 
-export REPO=$1
-export GIT_SHA=$2
-export TAG=$3
-
-git clone $repo
-cd $(basename $repo)
-git checkout $GIT_SHA
-sudo ./build.sh
-sudo shutdown -h now
-
-
-#!/bin/bash -xe
-
 # Always delete instance after attempting build
 function cleanup {
-    gcloud compute instances delete ${INSTANCE_NAME} --quiet
+    gcloud compute instances delete ${INSTANCE_NAME} --quiet --delete-disks=all
 }
 
 # Configurable parameters
@@ -46,6 +33,7 @@ gcloud compute instances create \
 trap cleanup EXIT
 
 gcloud compute scp --compress --recurse \
+      --verbosity debug \
        $(pwd) ${USERNAME}@${INSTANCE_NAME}:${REMOTE_WORKSPACE} \
        --ssh-key-file=${KEYNAME}
 
