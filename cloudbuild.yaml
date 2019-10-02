@@ -3,8 +3,8 @@ steps:
   secretEnv: ['GITHUB_TOKEN']
   args: ['bash', '-c', 'echo $$GITHUB_TOKEN > .gh_token']
 
-- name: gcr.io/cloud-solutions-images/remote-builder:v0.3.1
-  waitFor: ["-"]
+- name: 'ubuntu'
+  args: ['bash', '-c', 'remote-build.sh']
   env:
     - INSTANCE_ARGS=--image-project moshloop-image-builder --image ubuntu-1805-nv
     - ZONE=europe-west2-a
