@@ -1,5 +1,9 @@
 #!/bin/bash
 set -o verbose
+echo "Starting in $PWD"
+ls
+cd $(dirname $0)
+ls
 [[ "$NAME" == "" ]]         && NAME=$(basename $(git remote get-url origin | sed 's/\.git//'))
 [[ "$GITHUB_USER" == "" ]]  && GITHUB_USER=$(basename $(dirname $(git remote get-url origin | sed 's/\.git//')))
 [[ "$GITHUB_TOKEN" == "" ]] && GITHUB_TOKEN=$(cat .gh-token)
@@ -29,7 +33,7 @@ if ! which gcloud; then
 fi
 
 if ! which qemu-system-x86; then
-  sudo apt-get install -y qemu-system-x86 kpart python-pexpec python-serial libguestfs-tools
+  sudo apt-get install -y qemu-system-x86
 fi
 
 
