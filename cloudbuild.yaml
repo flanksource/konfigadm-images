@@ -9,6 +9,8 @@ steps:
     - INSTANCE_ARGS=--image-project moshloop-image-builder --image ubuntu-1805-nv
     - ZONE=europe-west2-a
     - USERNAME=cloud-user
+    - REPO_OWNER=$REPO_OWNER
+    - REPO_NAME=$REPO_NAME
     - COMMAND=sudo /home/cloud-user/workspace/build.sh ubuntu1804 k8s-1.15
 
 timeout: 1h
