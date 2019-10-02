@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+export
 # Always delete instance after attempting build
 function cleanup {
   gcloud compute instances delete ${INSTANCE_NAME} --quiet --delete-disks=all
@@ -39,7 +41,7 @@ gcloud compute scp --compress --recurse \
 
 gcloud compute ssh --ssh-key-file=${KEYNAME} \
       --verbosity debug \
-       ${USERNAME}@${INSTANCE_NAME} -- "export GITHUB_USER=${_REPO_OWNER} && export NAME=${REPO_NAME} && exportTAG=${REVISION_ID} && " ${COMMAND}
+       ${USERNAME}@${INSTANCE_NAME} -- "export GITHUB_USER=${REPO_OWNER} && export NAME=${REPO_NAME} && exportTAG=${REVISION_ID} && " ${COMMAND}
 
 gcloud compute scp --compress --recurse \
        ${USERNAME}@${INSTANCE_NAME}:${REMOTE_WORKSPACE}*.log $(pwd) \
