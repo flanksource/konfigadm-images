@@ -9,6 +9,8 @@ set -o verbose
 GITHUB_USER=moshloop
 NAME=konfigadm-images
 
+sleep 10
+
 snap install docker
 
 if (! docker stats --no-stream ); then
