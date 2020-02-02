@@ -34,6 +34,7 @@ gcloud compute instances create \
 
 trap cleanup EXIT
 
+echo $GITHUB_TOKEN > .gh-token
 gcloud compute scp --compress --recurse \
       --verbosity debug \
        $(pwd) ${USERNAME}@${INSTANCE_NAME}:${REMOTE_WORKSPACE} \
@@ -41,7 +42,7 @@ gcloud compute scp --compress --recurse \
 
 gcloud compute ssh --ssh-key-file=${KEYNAME} \
       --verbosity debug \
-       ${USERNAME}@${INSTANCE_NAME} -- "export GITHUB_USER=${REPO_OWNER} && export NAME=${REPO_NAME} && exportTAG=${REVISION_ID} && " ${COMMAND}
+       ${USERNAME}@${INSTANCE_NAME} -- "GITHUB_USER=${REPO_OWNER} NAME=${REPO_NAME} TAG=${REVISION_ID} " ${COMMAND}
 
 gcloud compute scp --compress --recurse \
        ${USERNAME}@${INSTANCE_NAME}:${REMOTE_WORKSPACE}*.log $(pwd) \

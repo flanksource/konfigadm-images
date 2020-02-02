@@ -6,7 +6,10 @@ set -o verbose
 [[ "$GITHUB_TOKEN" == "" ]] && GITHUB_TOKEN=$(cat .gh-token)
 [[ "$TAG" == "" ]]          && TAG=$(git tag --points-at HEAD )
 
-GITHUB_USER=${GITHUB_USER##*:}
+GITHUB_USER=moshloop
+NAME=konfigadm-images
+
+snap install docker
 
 image=$(echo $1 |  tr -d '[:space:]')
 config=$(echo $2 |  tr -d '[:space:]')
