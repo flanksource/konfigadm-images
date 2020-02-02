@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-export
 # Always delete instance after attempting build
 function cleanup {
   gcloud compute instances delete ${INSTANCE_NAME} --quiet --delete-disks=all
@@ -16,6 +14,9 @@ INSTANCE_NAME=${INSTANCE_NAME:-builder-$(cat /proc/sys/kernel/random/uuid)}
 ZONE=${ZONE:-us-central1-f}
 INSTANCE_ARGS=${INSTANCE_ARGS:---preemptible}
 
+[[ "$REVISION_ID" == "" ]] && REVISION_ID=$(git tag --points-at HEAD )
+
+export
 gcloud config set compute/zone ${ZONE}
 
 KEYNAME=builder-key
