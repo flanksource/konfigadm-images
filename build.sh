@@ -1,15 +1,23 @@
 #!/bin/bash
 set -o verbose
 
-[[ "$NAME" == "" ]]         && NAME=$(basename $(git remote get-url origin | sed 's/\.git//'))
-[[ "$GITHUB_USER" == "" ]]  && GITHUB_USER=$(basename $(dirname $(git remote get-url origin | sed 's/\.git//')))
-[[ "$GITHUB_TOKEN" == "" ]] && GITHUB_TOKEN=$(cat .gh-token)
-[[ "$TAG" == "" ]]          && TAG=$(git tag --points-at HEAD )
+# [[ "$NAME" == "" ]]         && NAME=$(basename $(git remote get-url origin | sed 's/\.git//'))
+# [[ "$GITHUB_USER" == "" ]]  && GITHUB_USER=$(basename $(dirname $(git remote get-url origin | sed 's/\.git//')))
+# [[ "$GITHUB_TOKEN" == "" ]] && GITHUB_TOKEN=$(cat .gh-token)
+# [[ "$TAG" == "" ]]          && TAG=$(git tag --points-at HEAD )
 
 GITHUB_USER=moshloop
 NAME=konfigadm-images
 
 snap install docker
+
+if (! docker stats --no-stream ); then
+  while (! docker stats --no-stream ); do
+    echo "Waiting for Docker to launch..."
+    sleep 1
+  done
+fi
+
 
 image=$(echo $1 |  tr -d '[:space:]')
 config=$(echo $2 |  tr -d '[:space:]')
