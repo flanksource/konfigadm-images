@@ -1,19 +1,43 @@
 steps:
-- name: 'ubuntu'
-  secretEnv: ['GITHUB_TOKEN']
-  args: ['bash', '-c', 'echo $$GITHUB_TOKEN > .gh_token']
 
 - name:  gcr.io/cloud-builders/gcloud
   entrypoint: /workspace/remote-build.sh
+  secretEnv: ['GITHUB_TOKEN']
   env:
-    - INSTANCE_ARGS=--image-project moshloop-image-builder --image ubuntu-1805-nv
+    - INSTANCE_ARGS=--image-project $PROJECT_ID
     - ZONE=europe-west2-a
     - USERNAME=cloud-user
     - REPO_OWNER=moshloop
     - REPO_NAME=konfigadm-images
+    - TAG=$REVISION_ID
+    - COMMAND=sudo /home/cloud-user/workspace/build.sh ubuntu1804 k8s-1.16
+
+- name:  gcr.io/cloud-builders/gcloud
+  entrypoint: /workspace/remote-build.sh
+  secretEnv: ['GITHUB_TOKEN']
+  env:
+    - INSTANCE_ARGS=--image-project $PROJECT_ID
+    - ZONE=europe-west2-a
+    - USERNAME=cloud-user
+    - REPO_OWNER=moshloop
+    - REPO_NAME=konfigadm-images
+    - TAG=$REVISION_ID
+    - COMMAND=sudo /home/cloud-user/workspace/build.sh ubuntu1804 k8s-1.17
+
+
+- name:  gcr.io/cloud-builders/gcloud
+  entrypoint: /workspace/remote-build.sh
+  secretEnv: ['GITHUB_TOKEN']
+  env:
+    - INSTANCE_ARGS=--image-project $PROJECT_ID
+    - ZONE=europe-west2-a
+    - USERNAME=cloud-user
+    - REPO_OWNER=moshloop
+    - REPO_NAME=konfigadm-images
+    - TAG=$REVISION_ID
     - COMMAND=sudo /home/cloud-user/workspace/build.sh ubuntu1804 k8s-1.15
 
-timeout: 1h
+timeout: 1200s
 secrets:
 - kmsKeyName: projects/moshloop-image-builder/locations/global/keyRings/github/cryptoKeys/token
   secretEnv:
