@@ -65,4 +65,4 @@ gcloud compute ssh --ssh-key-file=${KEYNAME} \
 
 gcloud compute scp --compress --recurse \
        ${USERNAME}@${INSTANCE_NAME}:${REMOTE_WORKSPACE}*.log $(pwd) \
-       --ssh-key-file=${KEYNAME}
+       --ssh-key-file=${KEYNAME} || echo "No logs found"
