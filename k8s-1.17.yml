@@ -1,8 +1,8 @@
 kubernetes:
-  version: 1.17.5
+  version: 1.17.6
 commands:
   - systemctl start docker
-  - kubeadm config images pull  --kubernetes-version 1.17.5
+  - kubeadm config images pull  --kubernetes-version 1.17.6
 container_runtime:
   type: docker
 cleanup: true
