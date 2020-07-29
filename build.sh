@@ -7,7 +7,7 @@ export
 
 GITHUB_USER=moshloop
 NAME=konfigadm-images
-KONFIGADM_VERSION=v0.5.3
+KONFIGADM_VERSION=v0.9.6
 
 image=$(echo $1 |  tr -d '[:space:]')
 config=$(echo $2 |  tr -d '[:space:]')
