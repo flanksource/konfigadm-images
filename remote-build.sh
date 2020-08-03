@@ -1,11 +1,13 @@
 #!/bin/bash
 
+set -e
 
 # Always delete instance after attempting build
 function cleanup {
+  timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+  echo "[${timestamp}] Removing instance ${INSTANCE_NAME}"
   gcloud compute instances delete ${INSTANCE_NAME} --quiet --delete-disks=all
 }
-
 
 # Configurable parameters
 [ -z "$COMMAND" ] && echo "Need to set COMMAND" && exit 1;
@@ -14,7 +16,7 @@ USERNAME=${USERNAME:-admin}
 REMOTE_WORKSPACE=${REMOTE_WORKSPACE:-/home/${USERNAME}/workspace/}
 INSTANCE_NAME=${INSTANCE_NAME:-builder-$(cat /proc/sys/kernel/random/uuid)}
 ZONE=${ZONE:-us-central1-f}
-NESTED_VIRT_NAME=$(gcloud compute images list --no-standard-images --filter 'family:nested-virt' --format 'value(name)')
+NESTED_VIRT_NAME=$(gcloud compute images list --no-standard-images --filter 'family:nested-virt-20-04' --format 'value(name)')
 INSTANCE_ARGS="$INSTANCE_ARGS --image $NESTED_VIRT_NAME --preemptible"
 
 gcloud config set compute/zone ${ZONE}
@@ -61,7 +63,7 @@ gcloud compute scp --compress --recurse \
 
 gcloud compute ssh --ssh-key-file=${KEYNAME} \
       --verbosity debug \
-       ${USERNAME}@${INSTANCE_NAME} -- "GITHUB_USER=${REPO_OWNER} NAME=${REPO_NAME} TAG=${TAG} ${COMMAND}"
+       ${USERNAME}@${INSTANCE_NAME} -- "${COMMAND} ${BUILD_STEP}"
 
 gcloud compute scp --compress --recurse \
        ${USERNAME}@${INSTANCE_NAME}:${REMOTE_WORKSPACE}*.log $(pwd) \
