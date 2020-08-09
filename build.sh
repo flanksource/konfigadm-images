@@ -5,12 +5,13 @@ set -e
 
 GITHUB_USER=flanksource
 NAME=konfigadm-images
-KONFIGADM_VERSION=v0.9.8
+KONFIGADM_VERSION=v0.9.9-alpha1
 
 CURRENT_DATE=$(date "+%Y%m%d%H%M%S")
 image=$(echo $1 |  tr -d '[:space:]')
 config=$(echo $2 |  tr -d '[:space:]')
 BUILD_STEP=$(echo $3 |  tr -d '[:space:]')
+TEST_TEMPLATE=$(echo $4 |  tr -d '[:space:]')
 TAG="${CURRENT_DATE}-${BUILD_STEP}"
 cd workspace
 [[ "$GITHUB_TOKEN" == "" ]] && GITHUB_TOKEN=$(cat .gh-token)
@@ -34,6 +35,8 @@ ova=${filename}.ova
 filename=${filename}.img
 mkdir -p images
 $konfigadm images build --image "$image" --resize +2G --output-filename "$filename" --output-dir images "${config}.yml" -v
+
+$konfigadm images test --image $filename --template $TEST_TEMPLATE
 
 if ! which github-release; then
   wget -nv https://github.com/aktau/github-release/releases/download/v0.7.2/linux-amd64-github-release.tar.bz2

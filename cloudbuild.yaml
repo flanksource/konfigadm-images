@@ -6,6 +6,7 @@ steps:
     env:
       - INSTANCE_ARGS=--image-project $PROJECT_ID
       - BUILD_STEP=ubuntu1804-k8s-1.16
+      - TEST_TEMPLATE=test/ubuntu-docker.yaml
       - ZONE=europe-west2-a
       - USERNAME=cloud-user
       - REPO_OWNER=flanksource
@@ -20,6 +21,7 @@ steps:
     env:
       - INSTANCE_ARGS=--image-project $PROJECT_ID
       - BUILD_STEP=ubuntu1804-k8s-1.17
+      - TEST_TEMPLATE=test/ubuntu-docker.yaml
       - ZONE=europe-west2-a
       - USERNAME=cloud-user
       - REPO_OWNER=flanksource
@@ -34,6 +36,7 @@ steps:
     env:
       - INSTANCE_ARGS=--image-project $PROJECT_ID
       - BUILD_STEP=ubuntu1804-k8s-1.18
+      - TEST_TEMPLATE=test/ubuntu-docker.yaml
       - ZONE=europe-west2-a
       - USERNAME=cloud-user
       - REPO_OWNER=flanksource
@@ -48,6 +51,7 @@ steps:
     env:
       - INSTANCE_ARGS=--image-project $PROJECT_ID
       - BUILD_STEP=ubuntu2004-k8s-1.18-containerd
+      - TEST_TEMPLATE=test/ubuntu-containerd.yaml
       - ZONE=europe-west2-a
       - USERNAME=cloud-user
       - REPO_OWNER=flanksource

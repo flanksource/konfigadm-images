@@ -63,7 +63,7 @@ gcloud compute scp --compress --recurse \
 
 gcloud compute ssh --ssh-key-file=${KEYNAME} \
       --verbosity debug \
-       ${USERNAME}@${INSTANCE_NAME} -- "${COMMAND} ${BUILD_STEP}"
+       ${USERNAME}@${INSTANCE_NAME} -- "${COMMAND} ${BUILD_STEP} ${TEST_TEMPLATE}"
 
 gcloud compute scp --compress --recurse \
        ${USERNAME}@${INSTANCE_NAME}:${REMOTE_WORKSPACE}*.log $(pwd) \
