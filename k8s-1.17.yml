@@ -3,6 +3,9 @@ kubernetes:
 commands:
   - systemctl start docker
   - kubeadm config images pull  --kubernetes-version 1.17.6
+  - apt remove -y unattended-upgrades
+  - apt-get update
+  - apt-get upgrade -y
 container_runtime:
   type: docker
 cleanup: true
