@@ -1,9 +1,9 @@
 kubernetes:
   version: 1.18.6
-  commands:
-    - systemctl start containerd
-    - kubeadm config images pull --kubernetes-version 1.18.6 --cri-socket=/run/containerd/containerd.sock
-  container_runtime:
-    type: containerd
-  cleanup: true
-  
+commands:
+  - systemctl start containerd
+  - kubeadm config images pull --kubernetes-version 1.18.6 --cri-socket=/run/containerd/containerd.sock
+container_runtime:
+  type: containerd
+cleanup: true
+
