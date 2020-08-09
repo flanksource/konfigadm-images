@@ -36,7 +36,7 @@ filename=${filename}.img
 mkdir -p images
 $konfigadm images build --image "$image" --resize +2G --output-filename "$filename" --output-dir images "${config}.yml" -v
 
-$konfigadm images test --image $filename --template $TEST_TEMPLATE
+$konfigadm images test --image images/$filename --template $TEST_TEMPLATE
 
 if ! which github-release; then
   wget -nv https://github.com/aktau/github-release/releases/download/v0.7.2/linux-amd64-github-release.tar.bz2
