@@ -49,7 +49,7 @@ github-release  -v release \
     --repo $NAME \
     --tag $TAG \
     --security-token $GITHUB_TOKEN \
-    --pre-release
+    --pre-release || echo Release already created
 
 $konfigadm images convert --image images/$filename  -v
 
