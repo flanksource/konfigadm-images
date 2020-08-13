@@ -1,0 +1,10 @@
+service:
+    containerd:
+      enabled: true
+      running: true
+    docker:
+      enabled: true
+      running: true
+    kubelet:
+      enabled: true
+      running: false
