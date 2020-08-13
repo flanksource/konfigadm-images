@@ -12,7 +12,7 @@ image=$(echo $1 |  tr -d '[:space:]')
 config=$(echo $2 |  tr -d '[:space:]')
 BUILD_STEP=$(echo $3 |  tr -d '[:space:]')
 TEST_TEMPLATE=$(echo $4 |  tr -d '[:space:]')
-TAG="$(date "+%Y%m%d)"
+TAG="$(date "+%Y%m%d")"
 cd workspace
 [[ "$GITHUB_TOKEN" == "" ]] && GITHUB_TOKEN=$(cat .gh-token)
 konfigadm="docker run --rm -u root --privileged -v /dev/kvm:/dev/kvm -v $PWD:$PWD -w $PWD -v /root/.konfigadm:/root/.konfigadm flanksource/konfigadm:$KONFIGADM_VERSION konfigadm "
